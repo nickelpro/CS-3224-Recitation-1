@@ -201,6 +201,11 @@ int main(int argc, char* argv[]) {
   // What if we don't know size ahead of time? Like reading a file.
   FILE* fd = fopen("mytext", "r");
 
+  if(!fd) {
+    printf("Can't find mytext\n");
+    return 1;
+  }
+
   size_t bufSize = 20; // Make a guess (20 is a very small guess)
   size_t bytesRead = 0;
 
