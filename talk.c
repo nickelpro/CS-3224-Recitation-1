@@ -198,20 +198,28 @@ int main(int argc, char* argv[]) {
    * bufferInfo("bye", bye, sizeof(bye));
    */
 
+  // What if we don't know size ahead of time? Like reading a file.
   FILE* fd = fopen("mytext", "r");
 
-  size_t bufSize = 20;
+  size_t bufSize = 20; // Make a guess (20 is a very small guess)
   size_t bytesRead = 0;
-  char* myBuf = malloc(20);
+
+  // Make a guess, keep track with bufSize and bytesRead
+  char* myBuf = malloc(bufSize);
 
   int result = fread(myBuf, 1, bufSize, fd);
   while(result > 0) {
     bytesRead += result;
-    if(bytesRead == bufSize) {
+    if(bytesRead == bufSize) { // Buffer is full
       size_t oldSize = bufSize;
-      bufSize *= 2;
-      myBuf = myRealloc(myBuf, oldSize, bufSize);
+      bufSize *= 2; // New guess, double the old guess
+      myBuf = myRealloc(myBuf, oldSize, bufSize); // Need a new buffer
     }
+
+    // myBuf + byteRead: Pointer arithmatic, returns a pointer to the next
+    // empty byte
+    // bufSize - bytesRead: The number of unfilled bytes left in the
+    // buffer
     result = fread(myBuf + bytesRead, 1, bufSize - bytesRead, fd);
   }
 
@@ -219,6 +227,6 @@ int main(int argc, char* argv[]) {
   if(bytesRead == bufSize)
     myBuf = myRealloc(myBuf, bufSize, bufSize + 1);
 
-  myBuf[bytesRead] = 0;
+  myBuf[bytesRead] = 0; // Attach a null terminator to a string
   printf("%s", myBuf);
 }
