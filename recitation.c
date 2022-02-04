@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
 
   /**
    * char hello[] = "Hello World!";
-   * // note: char hello[] is being treated as pointer
+   * // note: char hello[] is being treated as a pointer
    * // in this function call. You cannot pass arrays
    * // to functions, because they get converted to pointers
    * bufferInfo("hello", hello, sizeof(hello));
@@ -204,7 +204,7 @@ int main(int argc, char* argv[]) {
   size_t bufSize = 20; // Make a guess (20 is a very small guess)
   size_t bytesRead = 0;
 
-  // Make a guess, keep track with bufSize and bytesRead
+  // Keep track with bufSize and bytesRead
   char* myBuf = malloc(bufSize);
 
   int result = fread(myBuf, 1, bufSize, fd);
