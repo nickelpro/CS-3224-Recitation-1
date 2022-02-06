@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 
   /**
    * // Only a pointer was copied, myIntArray and intPtr now point to the same
-   * // my memory address
+   * // memory address
    * printf("myIntArray: %p\n", (void*) myIntArray);
    * printf("intPtr: %p\n", (void*) intPtr);
    */
