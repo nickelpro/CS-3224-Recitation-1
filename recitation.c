@@ -213,8 +213,9 @@ int main(int argc, char* argv[]) {
   char* myBuf = malloc(bufSize);
 
   int result = fread(myBuf, 1, bufSize, fd);
+  bytesRead += result;
+
   while(result > 0) {
-    bytesRead += result;
     if(bytesRead == bufSize) { // Buffer is full
       size_t oldSize = bufSize;
       bufSize *= 2; // New guess, double the old guess
@@ -226,6 +227,7 @@ int main(int argc, char* argv[]) {
     // bufSize - bytesRead: The number of unfilled bytes left in the
     // buffer
     result = fread(myBuf + bytesRead, 1, bufSize - bytesRead, fd);
+    bytesRead += result;
   }
 
   // Make room for a null terminator, printf expects a null terminator
